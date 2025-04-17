@@ -12,6 +12,10 @@
 
 <div class="container py-5">
   <h2 class="text-center mb-4">🚰 Tap4Tap RFID Dashboard</h2>
+  <div class="text-end mb-3">
+    <button class="btn btn-outline-secondary" onclick="logout()">Logout</button>
+  </div>
+  
 
   <!-- Search Filter -->
   <div class="mb-3 d-flex">
@@ -102,6 +106,22 @@
 
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
+
+
+  // Firebase Auth check
+firebase.auth().onAuthStateChanged((user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
+
+// Logout button (optional)
+function logout() {
+  firebase.auth().signOut().then(() => {
+    window.location.href = "login.html";
+  });
+}
+
 
   // Add Client
   document.getElementById('addClientForm').addEventListener('submit', async (e) => {
